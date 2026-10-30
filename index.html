@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="es" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historias y Leyendas Paranormales | historiasyleyendasparanormalestarea.com</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        paranormal: {
+                            black: '#050608',
+                            darker: '#0a0d14',
+                            dark: '#111622',
+                            card: '#161c2b',
+                            border: '#242e46',
+                            green: '#10b981',
+                            greenGlow: '#059669',
+                            purple: '#8b5cf6',
+                            red: '#ef4444',
+                            amber: '#f59e0b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Share Tech Mono', 'monospace'],
+                        creepy: ['Creepster', 'cursive']
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'radar-sweep': 'radar 3s linear infinite',
+                        'float': 'float 5s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        radar: {
+                            '0%': { transform: 'rotate(0deg)' },
+                            '100%': { transform: 'rotate(360deg)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-12px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <style>
+        .scanlines {
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.35) 50%
+            ), linear-gradient(
+                90deg,
+                rgba(255, 0, 0, 0.03),
+                rgba(0, 255, 0, 0.01),
+                rgba(0, 0, 255, 0.03)
+            );
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+
+        .glow-green { box-shadow: 0 0 20px rgba(16, 185, 129, 0.35); }
+        .glow-red { box-shadow: 0 0 20px rgba(239, 68, 68, 0.35); }
+        .glow-purple { box-shadow: 0 0 20px rgba(139, 92, 246, 0.35); }
+        .glow-amber { box-shadow: 0 0 20px rgba(245, 158, 11, 0.35); }
+        .text-glow-green { text-shadow: 0 0 10px rgba(16, 185, 129, 0.8); }
+        .text-glow-red { text-shadow: 0 0 10px rgba(239, 68, 68, 0.8); }
+        .text-glow-purple { text-shadow: 0 0 10px rgba(139, 92, 246, 0.8); }
+        .text-glow-amber { text-shadow: 0 0 10px rgba(245, 158, 11, 0.8); }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050608; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #10b981; }
+
+        .glitch-text {
+            position: relative;
+            display: inline-block;
+        }
+        .glitch-text::before, .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            clip: rect(0, 0, 0, 0);
+        }
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -2px 0 #ef4444;
+            animation: glitch-anim 2s infinite linear alternate-reverse;
+        }
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: -2px 0 #10b981;
+            animation: glitch-anim2 3s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip: rect(10px, 9999px, 30px, 0); }
+            20% { clip: rect(40px, 9999px, 10px, 0); }
+            40% { clip: rect(25px, 9999px, 50px, 0); }
+            60% { clip: rect(60px, 9999px, 20px, 0); }
+            80% { clip: rect(15px, 9999px, 40px, 0); }
+            100% { clip: rect(35px, 9999px, 5px, 0); }
+        }
+        @keyframes glitch-anim2 {
+            0% { clip: rect(50px, 9999px, 15px, 0); }
+            20% { clip: rect(10px, 9999px, 45px, 0); }
+            40% { clip: rect(30px, 9999px, 20px, 0); }
+            60% { clip: rect(5px, 9999px, 60px, 0); }
+            80% { clip: rect(40px, 9999px, 10px, 0); }
+            100% { clip: rect(20px, 9999px, 35px, 0); }
+        }
+    </style>
+</head>
+<body class="bg-paranormal-black text-gray-200 font-sans selection:bg-emerald-900 selection:text-emerald-100 relative overflow-x-hidden">
+
+    <!-- Scanlines & Ambient Fog Canvas -->
+    <div class="fixed inset-0 scanlines z-40 pointer-events-none opacity-40"></div>
+    <canvas id="fog-canvas" class="fixed inset-0 z-0 pointer-events-none opacity-30"></canvas>
+
+    <!-- 1. HEADER / NAVBAR -->
+    <header class="sticky top-0 z-50 bg-paranormal-darker/95 backdrop-blur-md border-b border-paranormal-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo & Domain Indicator -->
+                <a href="#hero" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-full bg-emerald-950 border border-emerald-500/50 flex items-center justify-center text-emerald-400 glow-green group-hover:scale-105 transition">
+                        <i class="fa-solid fa-ghost text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="font-mono text-lg font-bold tracking-wider text-emerald-400 text-glow-green block leading-tight">HISTORIAS Y LEYENDAS PARANORMALES</span>
+                        <span class="block text-[11px] text-purple-400 font-mono tracking-tight"><i class="fa-solid fa-globe text-[9px]"></i> historiasyleyendasparanormalestarea.com</span>
+                    </div>
+                </a>
+
+                <!-- Navigation Links -->
+                <nav class="hidden lg:flex space-x-6 font-mono text-xs uppercase tracking-wider">
+                    <a href="#hero" class="text-gray-300 hover:text-emerald-400 transition">Inicio</a>
+                    <a href="#leyendas" class="text-gray-300 hover:text-emerald-400 transition">Historias y Leyendas</a>
+                    <a href="#detector" class="text-gray-300 hover:text-emerald-400 transition">Detector EMF</a>
+                    <a href="#spiritbox" class="text-gray-300 hover:text-emerald-400 transition">Spirit Box</a>
+                    <a href="#reportar" class="text-gray-300 hover:text-emerald-400 transition">Reportar Evidencia</a>
+                </nav>
+
+                <!-- Academic Task Tag -->
+                <div class="hidden sm:flex items-center gap-2 font-mono text-xs text-amber-400 bg-amber-950/60 px-3 py-1.5 rounded-full border border-amber-800/50">
+                    <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                    <span>PROYECTO ACADÉMICO</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. HERO BANNER -->
+    <section id="hero" class="relative min-h-[85vh] flex items-center justify-center pt-12 pb-20 z-10 px-4">
+        <div class="max-w-4xl mx-auto text-center space-y-8">
+            
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-950/70 border border-red-500/40 text-red-400 text-xs font-mono uppercase tracking-widest glow-red animate-pulse">
+                <i class="fa-solid fa-triangle-exclamation"></i> Archivos Místicos y Fenómenos Inexplicables
+            </div>
+
+            <!-- Glitch Title -->
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-mono font-extrabold text-white tracking-tight leading-none">
+                HISTORIAS Y LEYENDAS<br>
+                <span class="glitch-text text-emerald-400 text-glow-green" data-text="PARANORMALES">PARANORMALES</span>
+            </h1>
+
+            <!-- Typewriter Subtitle -->
+            <div class="h-14 flex items-center justify-center">
+                <p id="typewriter" class="font-mono text-sm sm:text-lg text-gray-300 max-w-2xl mx-auto border-r-2 border-emerald-500 pr-1 text-glow-green">
+                    <!-- Dynamic Text Injected Here -->
+                </p>
+            </div>
+
+            <!-- Domain Display Banner -->
+            <div class="bg-paranormal-dark/80 inline-block px-4 py-2 rounded-lg border border-purple-500/40 font-mono text-xs text-purple-300">
+                <i class="fa-solid fa-link text-purple-400 mr-2"></i> Portal Oficial: <strong>historiasyleyendasparanormalestarea.com</strong>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 font-mono text-sm">
+                <a href="#leyendas" class="w-full sm:w-auto px-8 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-black font-bold rounded-lg transition duration-300 shadow-lg glow-green flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-book-skull"></i> EXPLORAR LEYENDAS
+                </a>
+                <a href="#detector" class="w-full sm:w-auto px-8 py-3.5 bg-paranormal-dark border border-paranormal-border hover:border-purple-500 text-gray-300 hover:text-white rounded-lg transition duration-300 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-bolt text-purple-400"></i> PROBAR DETECTOR EMF
+                </a>
+            </div>
+
+            <!-- Live Stats Row -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-10 border-t border-paranormal-border/60 font-mono text-center">
+                <div class="bg-paranormal-dark/60 p-3 rounded border border-paranormal-border">
+                    <span class="text-[10px] text-gray-500 block">LEYENDAS RECOPILADAS</span>
+                    <span class="text-xl font-bold text-emerald-400">150+</span>
+                </div>
+                <div class="bg-paranormal-dark/60 p-3 rounded border border-paranormal-border">
+                    <span class="text-[10px] text-gray-500 block">ANOMALÍAS REGISTRADAS</span>
+                    <span class="text-xl font-bold text-red-500">89</span>
+                </div>
+                <div class="bg-paranormal-dark/60 p-3 rounded border border-paranormal-border">
+                    <span class="text-[10px] text-gray-500 block">FRECUENCIA RESIDUAL</span>
+                    <span class="text-xl font-bold text-purple-400">14.2 Hz</span>
+                </div>
+                <div class="bg-paranormal-dark/60 p-3 rounded border border-paranormal-border">
+                    <span class="text-[10px] text-gray-500 block">ESTADO DEL PORTAL</span>
+                    <span class="text-xl font-bold text-amber-400">ONLINE</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. SECCIÓN DE HISTORIAS Y LEYENDAS (CATÁLOGO Y MODAL) -->
+    <section id="leyendas" class="py-20 z-10 relative px-4 max-w-7xl mx-auto space-y-10">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div class="space-y-2">
+                <span class="text-xs font-mono text-purple-400 uppercase tracking-widest">[ REPOSITORIO DE MITOS Y APARICIONES ]</span>
+                <h2 class="text-3xl sm:text-4xl font-mono font-bold text-white flex items-center gap-3">
+                    <i class="fa-solid fa-book-open-reader text-purple-400"></i> HISTORIAS Y LEYENDAS POPULARES
+                </h2>
+                <p class="text-xs sm:text-sm text-gray-400 max-w-xl">
+                    Selecciona una historia para leer el relato completo de terror, mitología urbana y acontecimientos sobrenaturales.
+                </p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap gap-2 font-mono text-xs">
+                <button onclick="filterCasesCategory('todas')" class="filter-btn px-4 py-2 rounded bg-purple-900/60 border border-purple-500 text-purple-200 font-bold hover:bg-purple-800 transition" data-cat="todas">Todas</button>
+                <button onclick="filterCasesCategory('mexicanas')" class="filter-btn px-4 py-2 rounded bg-paranormal-dark border border-paranormal-border text-gray-400 hover:text-white transition" data-cat="mexicanas">Leyendas Mexicanas</button>
+                <button onclick="filterCasesCategory('casas')" class="filter-btn px-4 py-2 rounded bg-paranormal-dark border border-paranormal-border text-gray-400 hover:text-white transition" data-cat="casas">Casas Embrujadas</button>
+                <button onclick="filterCasesCategory('apariciones')" class="filter-btn px-4 py-2 rounded bg-paranormal-dark border border-paranormal-border text-gray-400 hover:text-white transition" data-cat="apariciones">Apariciones</button>
+            </div>
+        </div>
+
+        <!-- Cards Grid -->
+        <div id="cases-grid-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamic Cards Populated by JS -->
+        </div>
+    </section>
+
+    <!-- STORY DETAIL MODAL -->
+    <div id="story-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-paranormal-dark border border-purple-500/60 max-w-2xl w-full rounded-2xl overflow-hidden shadow-2xl relative space-y-4 max-h-[90vh] flex flex-col">
+            <!-- Modal Header / Image -->
+            <div class="h-56 relative w-full overflow-hidden shrink-0">
+                <img id="modal-img" src="" alt="" class="w-full h-full object-cover">
+                <button onclick="closeModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/70 text-white flex items-center justify-center hover:bg-red-600 transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <span id="modal-tag" class="absolute bottom-4 left-4 px-3 py-1 rounded bg-purple-950/80 border border-purple-500 text-purple-300 font-mono text-xs"></span>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="p-6 space-y-4 overflow-y-auto font-mono text-xs text-gray-300 leading-relaxed">
+                <h3 id="modal-title" class="text-2xl font-bold text-white font-mono"></h3>
+                <div id="modal-location" class="text-emerald-400 text-[11px]"></div>
+                <div id="modal-text" class="space-y-3 font-sans text-sm text-gray-300"></div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 border-t border-paranormal-border bg-paranormal-darker flex justify-between items-center text-xs font-mono">
+                <span class="text-gray-500">historiasyleyendasparanormalestarea.com</span>
+                <button onclick="closeModal()" class="px-5 py-2 bg-purple-900/60 border border-purple-500 text-purple-200 rounded hover:bg-purple-800 transition">
+                    CERRAR LEYENDA
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. DETECTOR EMF Y RADAR -->
+    <section id="detector" class="py-20 z-10 relative bg-paranormal-darker/70 border-y border-paranormal-border px-4">
+        <div class="max-w-7xl mx-auto space-y-10">
+            <div class="text-center space-y-2">
+                <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest">[ HERRAMIENTA SIMULADA DE ESCÁNER ]</span>
+                <h2 class="text-3xl sm:text-4xl font-mono font-bold text-white flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-bolt text-emerald-400"></i> DETECTOR DE CAMPO ELECTROMAGNÉTICO (EMF)
+                </h2>
+                <p class="text-xs sm:text-sm text-gray-400 max-w-2xl mx-auto">
+                    Mueve el cursor o interactúa en la pantalla dentro de la zona del detector para simular lecturas del medidor K-II y emitir sonidos de frecuencia.
+                </p>
+            </div>
+
+            <!-- EMF Scanner Interface -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Radar Visual -->
+                <div class="lg:col-span-5 flex flex-col items-center justify-center space-y-4">
+                    <div class="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-paranormal-black border-2 border-emerald-800/80 p-2 flex items-center justify-center shadow-2xl overflow-hidden glow-green">
+                        <div class="absolute inset-0 rounded-full border border-emerald-900/40 m-8"></div>
+                        <div class="absolute inset-0 rounded-full border border-emerald-900/40 m-16"></div>
+                        <div class="absolute inset-0 rounded-full border border-emerald-900/40 m-24"></div>
+                        <div class="absolute w-full h-[1px] bg-emerald-900/40"></div>
+                        <div class="absolute h-full w-[1px] bg-emerald-900/40"></div>
+
+                        <div id="radar-sweeper" class="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-transparent to-emerald-500/20 border-r-2 border-emerald-400 animate-radar-sweep pointer-events-none"></div>
+                        <div id="anomaly-dot" class="absolute w-4 h-4 rounded-full bg-red-500 border border-white opacity-0 transition-opacity duration-300 shadow-lg animate-ping"></div>
+                        <div class="w-3 h-3 rounded-full bg-emerald-400 z-10"></div>
+                    </div>
+                    <div class="font-mono text-xs text-gray-400 flex items-center gap-4">
+                        <span>RADAR: <strong class="text-emerald-400">ACTIVO</strong></span>
+                        <span>ANOMALÍA: <strong class="text-red-400" id="anomaly-count">0 DETECTADA</strong></span>
+                    </div>
+                </div>
+
+                <!-- Right Visualizer & Meter Controls -->
+                <div id="emf-interactive-zone" class="lg:col-span-7 bg-paranormal-dark p-6 sm:p-8 rounded-xl border border-paranormal-border space-y-6 shadow-2xl relative cursor-crosshair">
+                    <div class="flex justify-between items-center border-b border-paranormal-border pb-4">
+                        <div>
+                            <h3 class="font-mono font-bold text-lg text-emerald-400">MEDIDOR K-II ELECTROMAGNÉTICO</h3>
+                            <span class="text-xs text-gray-500 font-mono">Desplaza tu puntero para alterar los campos</span>
+                        </div>
+                        <button id="btn-emf-power" onclick="toggleEMFPower()" class="px-4 py-2 bg-emerald-950 border border-emerald-500 text-emerald-300 text-xs font-mono font-bold rounded hover:bg-emerald-900 transition flex items-center gap-2 glow-green">
+                            <i class="fa-solid fa-power-off"></i> <span id="emf-power-label">SENSING ACTIVO</span>
+                        </button>
+                    </div>
+
+                    <!-- LED Bar Meter (5 LEDS) -->
+                    <div class="grid grid-cols-5 gap-2 font-mono text-center">
+                        <div id="emf-led-1" class="h-12 rounded bg-emerald-950/40 border border-emerald-900 flex flex-col justify-between p-1 transition-all">
+                            <span class="text-[10px] text-gray-500">1.5mG</span>
+                            <div class="w-full h-2 rounded bg-emerald-900"></div>
+                        </div>
+                        <div id="emf-led-2" class="h-12 rounded bg-emerald-950/40 border border-emerald-900 flex flex-col justify-between p-1 transition-all">
+                            <span class="text-[10px] text-gray-500">2.5mG</span>
+                            <div class="w-full h-2 rounded bg-emerald-900"></div>
+                        </div>
+                        <div id="emf-led-3" class="h-12 rounded bg-amber-950/40 border border-amber-900 flex flex-col justify-between p-1 transition-all">
+                            <span class="text-[10px] text-gray-500">10mG</span>
+                            <div class="w-full h-2 rounded bg-amber-900"></div>
+                        </div>
+                        <div id="emf-led-4" class="h-12 rounded bg-amber-950/40 border border-amber-900 flex flex-col justify-between p-1 transition-all">
+                            <span class="text-[10px] text-gray-500">20mG</span>
+                            <div class="w-full h-2 rounded bg-amber-900"></div>
+                        </div>
+                        <div id="emf-led-5" class="h-12 rounded bg-red-950/40 border border-red-900 flex flex-col justify-between p-1 transition-all">
+                            <span class="text-[10px] text-gray-500">20+mG</span>
+                            <div class="w-full h-2 rounded bg-red-900"></div>
+                        </div>
+                    </div>
+
+                    <!-- Audio Wave Visualizer Canvas -->
+                    <div class="w-full h-32 bg-black rounded-lg border border-emerald-900/60 overflow-hidden relative">
+                        <canvas id="emf-wave-canvas" class="w-full h-full block"></canvas>
+                        <div class="absolute bottom-2 right-2 text-[10px] font-mono text-emerald-500/80">SEÑAL ELECTROMAGNÉTICA</div>
+                    </div>
+
+                    <!-- Readings Panel -->
+                    <div class="grid grid-cols-3 gap-4 font-mono text-center">
+                        <div class="bg-paranormal-darker p-3 rounded border border-paranormal-border">
+                            <span class="text-xs text-gray-500 block">INTENSIDAD</span>
+                            <span id="emf-value-display" class="text-2xl font-bold text-emerald-400">1.2 mG</span>
+                        </div>
+                        <div class="bg-paranormal-darker p-3 rounded border border-paranormal-border">
+                            <span class="text-xs text-gray-500 block">FRECUENCIA</span>
+                            <span id="emf-freq-display" class="text-2xl font-bold text-purple-400">12 Hz</span>
+                        </div>
+                        <div class="bg-paranormal-darker p-3 rounded border border-paranormal-border">
+                            <span class="text-xs text-gray-500 block">AMENAZA</span>
+                            <span id="emf-status-display" class="text-2xl font-bold text-gray-400">NEUTRAL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. SPIRIT BOX Y GRABADORA EVP -->
+    <section id="spiritbox" class="py-20 z-10 relative bg-paranormal-darker/80 border-t border-paranormal-border px-4">
+        <div class="max-w-5xl mx-auto space-y-10">
+            <div class="text-center space-y-2">
+                <span class="text-xs font-mono text-amber-500 uppercase tracking-widest">[ BARRIDO DE RADIO Y PSICOFONÍAS ]</span>
+                <h2 class="text-3xl sm:text-4xl font-mono font-bold text-white flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-radio text-amber-500"></i> SPIRIT BOX Y RECEPTOR EVP
+                </h2>
+                <p class="text-xs sm:text-sm text-gray-400 max-w-2xl mx-auto">
+                    Abre el canal de transmisión de ruido blanco para escanear voces espectrales y mensajes del más allá.
+                </p>
+            </div>
+
+            <div class="bg-paranormal-dark p-6 sm:p-10 rounded-2xl border border-amber-900/40 shadow-2xl grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative overflow-hidden">
+                <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-amber-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="md:col-span-5 bg-black/90 p-6 rounded-xl border border-amber-500/40 text-center space-y-4 shadow-inner">
+                    <span class="text-xs font-mono text-amber-500 tracking-widest block">BARRIDO DE BANDA AM/FM</span>
+                    <div id="spirit-freq-display" class="font-mono text-4xl sm:text-5xl font-extrabold text-amber-400 text-glow-amber tracking-wider">
+                        87.5 MHz
+                    </div>
+                    <div class="flex items-center justify-center gap-2 text-xs font-mono text-gray-500">
+                        <span id="sb-sweep-status">ESTADO: DETENIDO</span>
+                    </div>
+
+                    <button id="btn-start-spiritbox" onclick="toggleSpiritBox()" class="w-full py-3.5 bg-amber-600 hover:bg-amber-500 text-black font-mono font-bold rounded-lg transition duration-300 shadow-lg text-sm flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-play"></i> INICIAR BARRIDO
+                    </button>
+                </div>
+
+                <div class="md:col-span-7 space-y-4">
+                    <div class="flex justify-between items-center font-mono text-xs">
+                        <span class="text-gray-400">PSICOFONÍAS REGISTRADAS (EVP):</span>
+                        <span class="text-amber-500"><i class="fa-solid fa-signal"></i> CANAL ACTIVO</span>
+                    </div>
+
+                    <div id="evp-log-console" class="bg-paranormal-darker p-4 rounded-xl border border-paranormal-border h-48 overflow-y-auto font-mono text-xs space-y-2 text-amber-300">
+                        <div class="text-gray-600 italic">Inicia el barrido para empezar a escuchar mensajes...</div>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <input type="text" id="spirit-question-input" placeholder="Escribe tu pregunta para los espíritus..." class="flex-1 bg-paranormal-darker border border-paranormal-border rounded-lg px-4 py-2.5 text-xs text-gray-200 focus:outline-none focus:border-amber-500 font-mono">
+                        <button onclick="sendSpiritQuestion()" class="px-5 py-2.5 bg-amber-950 border border-amber-600/60 text-amber-300 font-mono text-xs rounded-lg hover:bg-amber-900 transition font-bold">
+                            PREGUNTAR
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. FORMULARIO DE ENVÍO DE HISTORIAS / TAREA -->
+    <section id="reportar" class="py-20 z-10 relative px-4 max-w-4xl mx-auto space-y-10">
+        <div class="text-center space-y-2">
+            <span class="text-xs font-mono text-red-500 uppercase tracking-widest">[ ENVÍO DE HISTORIAS Y TAREAS ]</span>
+            <h2 class="text-3xl sm:text-4xl font-mono font-bold text-white flex items-center justify-center gap-3">
+                <i class="fa-solid fa-pen-to-square text-red-500"></i> ENVIAR MI HISTORIA O LEYENDA
+            </h2>
+            <p class="text-xs sm:text-sm text-gray-400 max-w-xl mx-auto">
+                Escribe tu relato urbano, leyenda local o experiencia paranormal para aportar a la base de datos de la tarea escolar o proyecto.
+            </p>
+        </div>
+
+        <form onsubmit="handleReportSubmit(event)" class="bg-paranormal-dark p-6 sm:p-10 rounded-2xl border border-paranormal-border space-y-6 shadow-2xl font-mono text-xs">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                    <label class="text-gray-300 uppercase block">Nombre o Seudónimo *</label>
+                    <input type="text" required placeholder="Ej: Carlos Ramírez" class="w-full bg-paranormal-darker border border-paranormal-border rounded-lg p-3 text-gray-200 focus:outline-none focus:border-red-500">
+                </div>
+                <div class="space-y-2">
+                    <label class="text-gray-300 uppercase block">Título de la Leyenda o Historia *</label>
+                    <input type="text" required placeholder="Ej: El Espectro del Antiguo Puente" class="w-full bg-paranormal-darker border border-paranormal-border rounded-lg p-3 text-gray-200 focus:outline-none focus:border-red-500">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                    <label class="text-gray-300 uppercase block">Ubicación / Ciudad *</label>
+                    <input type="text" required placeholder="Ej: Guadalajara, Jalisco" class="w-full bg-paranormal-darker border border-paranormal-border rounded-lg p-3 text-gray-200 focus:outline-none focus:border-red-500">
+                </div>
+                <div class="space-y-2">
+                    <label class="text-gray-300 uppercase block">Categoría de Leyenda *</label>
+                    <select required class="w-full bg-paranormal-darker border border-paranormal-border rounded-lg p-3 text-gray-200 focus:outline-none focus:border-red-500">
+                        <option value="">Seleccionar Categoría...</option>
+                        <option value="mexicanas">Leyendas Mexicanas</option>
+                        <option value="casas">Casas Embrujadas</option>
+                        <option value="apariciones">Apariciones y Fantasmas</option>
+                        <option value="mitos">Mitos Urbano / Experiencia Personal</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <label class="text-gray-300 uppercase block">Relato Completo de la Historia *</label>
+                <textarea required rows="5" placeholder="Cuenta la historia detalladamente desde el inicio, qué sucedió, quiénes estuvieron presentes y cómo concluyó..." class="w-full bg-paranormal-darker border border-paranormal-border rounded-lg p-3 text-gray-200 focus:outline-none focus:border-red-500"></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-4 bg-red-900/80 hover:bg-red-800 border border-red-500/60 text-red-100 font-bold rounded-lg transition duration-300 shadow-lg text-sm flex items-center justify-center gap-2 glow-red">
+                <i class="fa-solid fa-paper-plane"></i> ENVIAR LEYENDA AL REPOSITORIO
+            </button>
+        </form>
+    </section>
+
+    <!-- 7. FOOTER -->
+    <footer class="bg-paranormal-darker border-t border-paranormal-border py-10 z-10 relative font-mono text-xs text-gray-500">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+            <div class="space-y-1">
+                <div class="text-gray-300 font-bold text-sm">HISTORIAS Y LEYENDAS PARANORMALES</div>
+                <div class="text-purple-400 text-xs">Dominio: historiasyleyendasparanormalestarea.com</div>
+                <p class="text-[11px] text-gray-600">Proyecto Escolar y Académico para Recopilación de Mitos y Leyendas Urbano-Paranormales.</p>
+            </div>
+
+            <div class="flex flex-col items-center md:items-end gap-3">
+                <div class="flex gap-4 text-base text-gray-400">
+                    <a href="#" class="hover:text-emerald-400 transition"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="hover:text-emerald-400 transition"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" class="hover:text-emerald-400 transition"><i class="fa-brands fa-spotify"></i></a>
+                    <a href="#" class="hover:text-emerald-400 transition"><i class="fa-solid fa-rss"></i></a>
+                </div>
+                <div class="text-[10px] text-gray-600">&copy; 2026 Reservados todos los derechos académicos.</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast-notification" class="fixed bottom-5 right-5 z-50 bg-emerald-950 border border-emerald-500 text-emerald-200 px-5 py-3 rounded-xl shadow-2xl font-mono text-xs hidden flex items-center gap-3 glow-green">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toast-msg">Historia registrada correctamente.</span>
+    </div>
+
+    <!-- JAVASCRIPT CODE -->
+    <script>
+        /* TYPEWRITER EFFECT */
+        const typewriterPhrases = [
+            "Explora la leyenda de La Llorona, El Charro Negro y más...",
+            "historiasyleyendasparanormalestarea.com - Portal de Tarea Académica.",
+            "Escanea variaciones electromagnéticas con nuestro detector K-II.",
+            "Escucha los susurros y psicofonías en el Spirit Box en vivo."
+        ];
+        let phraseIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+
+        function typeWriter() {
+            const currentPhrase = typewriterPhrases[phraseIdx];
+            const target = document.getElementById('typewriter');
+            if (!target) return;
+
+            if (isDeleting) {
+                target.innerText = currentPhrase.substring(0, charIdx - 1);
+                charIdx--;
+            } else {
+                target.innerText = currentPhrase.substring(0, charIdx + 1);
+                charIdx++;
+            }
+
+            let typeSpeed = isDeleting ? 30 : 70;
+
+            if (!isDeleting && charIdx === currentPhrase.length) {
+                typeSpeed = 2200;
+                isDeleting = true;
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                phraseIdx = (phraseIdx + 1) % typewriterPhrases.length;
+                typeSpeed = 400;
+            }
+
+            setTimeout(typeWriter, typeSpeed);
+        }
+
+        /* FOG CANVAS */
+        function initFogCanvas() {
+            const canvas = document.getElementById('fog-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            const particles = Array.from({ length: 40 }, () => ({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 90 + 40,
+                vx: (Math.random() - 0.5) * 0.3,
+                vy: (Math.random() - 0.5) * 0.3,
+                alpha: Math.random() * 0.12 + 0.04
+            }));
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < -100) p.x = canvas.width + 100;
+                    if (p.x > canvas.width + 100) p.x = -100;
+                    if (p.y < -100) p.y = canvas.height + 100;
+                    if (p.y > canvas.height + 100) p.y = -100;
+
+                    const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
+                    grad.addColorStop(0, `rgba(139, 92, 246, ${p.alpha})`);
+                    grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+                    ctx.fillStyle = grad;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        /* STORIES AND LEGENDS DATA */
+        const storiesList = [
+            {
+                id: "LEY-001",
+                title: "La Llorona",
+                category: "mexicanas",
+                location: "Xochimilco y Ríos de México",
+                img: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=600&q=80",
+                shortDesc: "El alma en pena de una mujer que vaga por los ríos sollozando por sus hijos perdidos.",
+                fullStory: "<p>La leyenda narra la historia de una mujer de origen indígena que se enamoró de un caballero español. Tras dar a luz a sus hijos y ser rechazada por la nobleza, en un ataque de desesperación arrojó a sus hijos al río.</p><p>Arrepentida al instante, intentó salvarlos sin éxito. Desde entonces, su espíritu vaga por los causes de agua y calles desiertas emitiendo su escalofriante lamento: <em>'¡Ay mis hijos!'</em>.</p>"
+            },
+            {
+                id: "LEY-002",
+                title: "El Charro Negro",
+                category: "mexicanas",
+                location: "Caminos Rurales de México",
+                img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80",
+                shortDesc: "Un elegante jinete vestimentas oscuras que ofrece bolsas de oro a los viajeros nocturnos a cambio de su alma.",
+                fullStory: "<p>Se trata de una entidad que se aparece a los viajeros solitarios en los caminos de tierra al caer la noche. Viste un impecable traje de charro negro con botones de plata y monta un enorme caballo azabache de ojos ardientes.</p><p>Si el viajero acepta subir a su caballo o tomar su bolsa de monedas de oro, la persona desaparece para siempre jamás siendo vista otra vez.</p>"
+            },
+            {
+                id: "LEY-003",
+                title: "La Planchada del Hospital",
+                category: "casas",
+                location: "Hospital Juárez, Ciudad de México",
+                img: "https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&w=600&q=80",
+                shortDesc: "El espectro bondadoso de una enfermera que atiende a los enfermos durante las madrugadas.",
+                fullStory: "<p>Eulalia era una enfermera impecable con su uniforme siempre almidonado. Tras sufrir un desamor trágico, falleció en el hospital. Desde entonces, pacientes graves afirman haber sido atendidos y curados por una enfermera de ropa almidonada durante las noches sin que el personal nocturno lo sepa.</p>"
+            },
+            {
+                id: "LEY-004",
+                title: "El Panteón de Belén",
+                category: "casas",
+                location: "Guadalajara, Jalisco",
+                img: "https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&w=600&q=80",
+                shortDesc: "Tumba del niño Nachito y la leyenda del vampiro enterrado bajo un enorme árbol de cantera.",
+                fullStory: "<p>En el famoso cementerio de Guadalajara descansa Nachito, un niño que sufría de nictofobia (miedo a la oscuridad). Cuentan que su ataúd salía a la superficie cada noche hasta que tuvieron que construir una tumba elevada donde le diera la luz del sol y las velas nocturnas.</p>"
+            },
+            {
+                id: "LEY-005",
+                title: "La Nahuala",
+                category: "mexicanas",
+                location: "Puebla, México",
+                img: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=600&q=80",
+                shortDesc: "Bruja ancestral que habita viejas casonas coloniales capaz de transformarse en bestia nocturna.",
+                fullStory: "<p>La leyenda de la Nahuala habla de viejas casonas en el centro histórico donde moraban brujas capaces de transformarse en animales para acechar las calles vacías y alimentarse de los temores de los lugareños durante los eclipses.</p>"
+            },
+            {
+                id: "LEY-006",
+                title: "Aparición de la Calle Real",
+                category: "apariciones",
+                location: "Guanajuato, México",
+                img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80",
+                shortDesc: "Siluetas espectrales flotando en los estrechos callejones al sonar las campanas de medianoche.",
+                fullStory: "<p>Los callejones de Guanajuato esconden historias de amores trágicos y espectros de la época colonial que repiten su caminata nocturna cada medianoche iluminados apenas por los viejos faroles de gas.</p>"
+            }
+        ];
+
+        function renderCases(data) {
+            const container = document.getElementById('cases-grid-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            data.forEach(c => {
+                const card = document.createElement('div');
+                card.className = "bg-paranormal-dark rounded-xl border border-paranormal-border overflow-hidden hover:border-purple-500/50 transition duration-300 flex flex-col justify-between shadow-2xl group";
+
+                card.innerHTML = `
+                    <div>
+                        <div class="h-44 w-full relative overflow-hidden">
+                            <img src="${c.img}" alt="${c.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-80">
+                            <span class="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-mono rounded border uppercase text-purple-300 border-purple-800 bg-purple-950/80">
+                                ${c.category}
+                            </span>
+                        </div>
+                        <div class="p-5 space-y-2">
+                            <div class="text-[10px] font-mono text-emerald-400"><i class="fa-solid fa-location-dot"></i> ${c.location}</div>
+                            <h3 class="font-mono text-lg font-bold text-gray-100 group-hover:text-purple-300 transition">${c.title}</h3>
+                            <p class="text-xs text-gray-400 leading-relaxed">${c.shortDesc}</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <button onclick="openStoryModal('${c.id}')" class="w-full py-2.5 bg-purple-950/60 hover:bg-purple-900 border border-purple-600/50 text-xs font-mono text-purple-200 rounded transition flex items-center justify-center gap-2 font-bold">
+                            <i class="fa-solid fa-book-open"></i> LEER LEYENDA COMPLETA
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterCasesCategory(cat) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-cat') === cat) {
+                    btn.className = "filter-btn px-4 py-2 rounded bg-purple-900/60 border border-purple-500 text-purple-200 font-bold hover:bg-purple-800 transition";
+                } else {
+                    btn.className = "filter-btn px-4 py-2 rounded bg-paranormal-dark border border-paranormal-border text-gray-400 hover:text-white transition";
+                }
+            });
+
+            if (cat === 'todas') renderCases(storiesList);
+            else renderCases(storiesList.filter(c => c.category === cat));
+        }
+
+        function openStoryModal(id) {
+            const story = storiesList.find(s => s.id === id);
+            if (!story) return;
+
+            document.getElementById('modal-img').src = story.img;
+            document.getElementById('modal-title').innerText = story.title;
+            document.getElementById('modal-tag').innerText = `CATEGORÍA: ${story.category.toUpperCase()}`;
+            document.getElementById('modal-location').innerText = `UBICACIÓN HISTÓRICA: ${story.location}`;
+            document.getElementById('modal-text').innerHTML = story.fullStory;
+
+            document.getElementById('story-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('story-modal').classList.add('hidden');
+        }
+
+        /* EMF SCANNER AUDIO & LOGIC */
+        let audioCtx = null;
+        let emfPowered = true;
+        let waveCanvas, waveCtx;
+        let waveData = [];
+
+        function initEMFVisualizer() {
+            waveCanvas = document.getElementById('emf-wave-canvas');
+            if (!waveCanvas) return;
+            waveCtx = waveCanvas.getContext('2d');
+            waveCanvas.width = waveCanvas.offsetWidth;
+            waveCanvas.height = waveCanvas.offsetHeight;
+
+            const interactiveZone = document.getElementById('emf-interactive-zone');
+            
+            function handlePointerMove(e) {
+                if (!emfPowered) return;
+                const rect = interactiveZone.getBoundingClientRect();
+                const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+                const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const dist = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
+                
+                const intensity = Math.min(Math.max((1 - dist / centerX) * 25, 1.2), 30);
+                updateEMFReadings(intensity);
+            }
+
+            interactiveZone.addEventListener('mousemove', handlePointerMove);
+            interactiveZone.addEventListener('touchmove', handlePointerMove);
+        }
+
+        function toggleEMFPower() {
+            emfPowered = !emfPowered;
+            const btnLabel = document.getElementById('emf-power-label');
+            if (emfPowered) {
+                btnLabel.innerText = "SENSING ACTIVO";
+                updateEMFReadings(1.5);
+            } else {
+                btnLabel.innerText = "DESACTIVADO";
+                updateEMFReadings(0.0);
+            }
+        }
+
+        function updateEMFReadings(val) {
+            if (!emfPowered) val = 0;
+            const valDisplay = document.getElementById('emf-value-display');
+            const freqDisplay = document.getElementById('emf-freq-display');
+            const statusDisplay = document.getElementById('emf-status-display');
+            const anomalyDot = document.getElementById('anomaly-dot');
+            const anomalyCount = document.getElementById('anomaly-count');
+
+            valDisplay.innerText = `${val.toFixed(1)} mG`;
+            freqDisplay.innerText = `${Math.floor(val * 14)} Hz`;
+
+            let level = 0;
+            if (val > 1.5) level = 1;
+            if (val > 5.0) level = 2;
+            if (val > 12.0) level = 3;
+            if (val > 18.0) level = 4;
+            if (val > 24.0) level = 5;
+
+            for (let i = 1; i <= 5; i++) {
+                const led = document.getElementById(`emf-led-${i}`);
+                if (i <= level) {
+                    if (i <= 2) led.className = "h-12 rounded bg-emerald-500 border border-emerald-400 p-1 flex flex-col justify-between transition-all glow-green";
+                    else if (i <= 4) led.className = "h-12 rounded bg-amber-500 border border-amber-400 p-1 flex flex-col justify-between transition-all glow-amber";
+                    else led.className = "h-12 rounded bg-red-500 border border-red-400 p-1 flex flex-col justify-between transition-all glow-red animate-pulse";
+                } else {
+                    led.className = "h-12 rounded bg-paranormal-darker border border-paranormal-border p-1 flex flex-col justify-between transition-all opacity-40";
+                }
+            }
+
+            if (level >= 4) {
+                statusDisplay.innerText = "CRÍTICO";
+                statusDisplay.className = "text-2xl font-bold text-red-500 animate-pulse";
+                if (anomalyDot) {
+                    anomalyDot.style.opacity = '1';
+                    anomalyDot.style.left = `${Math.random() * 70 + 15}%`;
+                    anomalyDot.style.top = `${Math.random() * 70 + 15}%`;
+                }
+                if (anomalyCount) anomalyCount.innerText = "1 DETECTADA";
+                playGeigerBeep(val);
+            } else if (level >= 2) {
+                statusDisplay.innerText = "INQUIETO";
+                statusDisplay.className = "text-2xl font-bold text-amber-400";
+                if (anomalyDot) anomalyDot.style.opacity = '0';
+                if (anomalyCount) anomalyCount.innerText = "0 DETECTADA";
+                playGeigerBeep(val);
+            } else {
+                statusDisplay.innerText = "NEUTRAL";
+                statusDisplay.className = "text-2xl font-bold text-emerald-400";
+                if (anomalyDot) anomalyDot.style.opacity = '0';
+                if (anomalyCount) anomalyCount.innerText = "0 DETECTADA";
+            }
+
+            drawWaveform(val);
+        }
+
+        function playGeigerBeep(intensity) {
+            if (intensity < 3) return;
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(320 + intensity * 20, audioCtx.currentTime);
+
+                gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.04);
+            } catch (e) {}
+        }
+
+        function drawWaveform(val) {
+            if (!waveCtx || !waveCanvas) return;
+            waveData.push(val);
+            if (waveData.length > waveCanvas.width / 4) waveData.shift();
+
+            waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
+            waveCtx.beginPath();
+            waveCtx.strokeStyle = val > 15 ? '#ef4444' : '#10b981';
+            waveCtx.lineWidth = 2;
+
+            const step = waveCanvas.width / (waveCanvas.width / 4);
+            for (let i = 0; i < waveData.length; i++) {
+                const x = i * step;
+                const y = waveCanvas.height - (waveData[i] / 30 * (waveCanvas.height - 10) + 5);
+                if (i === 0) waveCtx.moveTo(x, y);
+                else waveCtx.lineTo(x, y);
+            }
+            waveCtx.stroke();
+        }
+
+        /* SPIRIT BOX */
+        let spiritBoxActive = false;
+        let spiritInterval = null;
+        const evpWords = [
+            "LLORONA...", "FRÍO...", "AQUÍ...", "SAL...", "PELIGRO", 
+            "CHARRO", "ESCUCHA...", "SOMBRA", "SÍGUEME", "NO CERRAR"
+        ];
+
+        function toggleSpiritBox() {
+            spiritBoxActive = !spiritBoxActive;
+            const btn = document.getElementById('btn-start-spiritbox');
+            const status = document.getElementById('sb-sweep-status');
+
+            if (spiritBoxActive) {
+                btn.innerHTML = `<i class="fa-solid fa-stop"></i> DETENER BARRIDO`;
+                btn.className = "w-full py-3.5 bg-red-600 hover:bg-red-500 text-black font-mono font-bold rounded-lg transition duration-300 shadow-lg text-sm flex items-center justify-center gap-2";
+                status.innerText = "ESTADO: BARRIDO ACTIVO";
+                status.className = "text-amber-400 animate-pulse";
+
+                startSpiritSweep();
+            } else {
+                btn.innerHTML = `<i class="fa-solid fa-play"></i> INICIAR BARRIDO`;
+                btn.className = "w-full py-3.5 bg-amber-600 hover:bg-amber-500 text-black font-mono font-bold rounded-lg transition duration-300 shadow-lg text-sm flex items-center justify-center gap-2";
+                status.innerText = "ESTADO: DETENIDO";
+                status.className = "text-gray-500";
+
+                clearInterval(spiritInterval);
+            }
+        }
+
+        function startSpiritSweep() {
+            const freqDisplay = document.getElementById('spirit-freq-display');
+            spiritInterval = setInterval(() => {
+                const freq = (87.5 + Math.random() * 20.5).toFixed(1);
+                freqDisplay.innerText = `${freq} MHz`;
+
+                playRadioStaticSound();
+
+                if (Math.random() < 0.12) {
+                    const word = evpWords[Math.floor(Math.random() * evpWords.length)];
+                    logEVPWord(freq, word);
+                }
+            }, 100);
+        }
+
+        function playRadioStaticSound() {
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(120 + Math.random() * 700, audioCtx.currentTime);
+
+                gain.gain.setValueAtTime(0.015, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.03);
+            } catch (e) {}
+        }
+
+        function logEVPWord(freq, word) {
+            const consoleEl = document.getElementById('evp-log-console');
+            if (!consoleEl) return;
+
+            const entry = document.createElement('div');
+            entry.className = "flex justify-between items-center border-b border-amber-900/30 pb-1";
+            entry.innerHTML = `
+                <span>[${freq} MHz] Psicofonía: <strong class="text-amber-400 font-creepy text-base tracking-widest">"${word}"</strong></span>
+                <span class="text-[9px] text-gray-500">REGISTRADO</span>
+            `;
+
+            consoleEl.prepend(entry);
+        }
+
+        function sendSpiritQuestion() {
+            const input = document.getElementById('spirit-question-input');
+            if (!input || !input.value.trim()) return;
+
+            const question = input.value.trim();
+            const consoleEl = document.getElementById('evp-log-console');
+            
+            const qEntry = document.createElement('div');
+            qEntry.className = "text-purple-300 italic border-b border-purple-900/40 pb-1";
+            qEntry.innerText = `[PREGUNTA]: "${question}"`;
+            consoleEl.prepend(qEntry);
+
+            input.value = '';
+
+            setTimeout(() => {
+                const word = evpWords[Math.floor(Math.random() * evpWords.length)];
+                logEVPWord("EVP-RES", word);
+            }, 1100);
+        }
+
+        function handleReportSubmit(e) {
+            e.preventDefault();
+            showToast("Tu historia fue enviada correctamente al repositorio de tareas.");
+            e.target.reset();
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast-notification');
+            const toastMsg = document.getElementById('toast-msg');
+            if (!toast || !toastMsg) return;
+
+            toastMsg.innerText = msg;
+            toast.classList.remove('hidden');
+
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 4000);
+        }
+
+        window.onload = function() {
+            typeWriter();
+            initFogCanvas();
+            initEMFVisualizer();
+            renderCases(storiesList);
+            updateEMFReadings(1.5);
+        };
+    </script>
+</body>
+</html>
